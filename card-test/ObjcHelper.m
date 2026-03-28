@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 
 #import "ObjcHelper.h"
+#import "kexploit/utils.m"
+#import "kexploit/darksword.m"
+#import "kexploit/kfs.m"
 
 @implementation ObjcHelper
 
@@ -26,6 +29,16 @@
 }
 
 -(void)respring {
+    killall(@"SpringBoard");
+    exit(0);
+}
+
+-(void)refreshWalletServices {
+    killall(@"passd");
+    killall(@"walletd");
+    killall(@"PassbookUIService");
+
+    // Keep legacy behavior as a fallback to force UI refresh on all versions.
     killall(@"SpringBoard");
     exit(0);
 }

@@ -3,3 +3,6 @@
 //
 
 #import "ObjcHelper.h"
+#import "kexploit/darksword.h"
+#import "kexploit/kfs.h"
+#import "kexploit/utils.h"

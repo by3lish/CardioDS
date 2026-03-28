@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A928B9928E5CEFB00EADBA5 /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 8A928B9828E5CEFB00EADBA5 /* ACarousel */; };
 		8A928B9D28E5E1EB00EADBA5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A928B9C28E5E1EB00EADBA5 /* ImagePicker.swift */; };
 		8A928BA128E5F04800EADBA5 /* ObjcHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A928BA028E5F04800EADBA5 /* ObjcHelper.m */; };
 		8A928BA828E706AF00EADBA5 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A928BA728E706AF00EADBA5 /* CardView.swift */; };
@@ -15,6 +14,7 @@
 		8AA5372228E269E100146E99 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5372128E269E100146E99 /* ContentView.swift */; };
 		8AA5372428E269E200146E99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5372328E269E200146E99 /* Assets.xcassets */; };
 		8AA5372728E269E200146E99 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5372628E269E200146E99 /* Preview Assets.xcassets */; };
+		D100000128E8000000AAA001 /* ExploitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100000028E8000000AAA001 /* ExploitManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +28,7 @@
 		8AA5372128E269E100146E99 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8AA5372328E269E200146E99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "card-test/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		8AA5372628E269E200146E99 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D100000028E8000000AAA001 /* ExploitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploitManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +36,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A928B9928E5CEFB00EADBA5 /* ACarousel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +63,7 @@
 			children = (
 				8A928BA728E706AF00EADBA5 /* CardView.swift */,
 				8AA5371F28E269E100146E99 /* card_testApp.swift */,
+				D100000028E8000000AAA001 /* ExploitManager.swift */,
 				8AA5372128E269E100146E99 /* ContentView.swift */,
 				8AA5372328E269E200146E99 /* Assets.xcassets */,
 				8AA5372528E269E200146E99 /* Preview Content */,
@@ -99,7 +100,6 @@
 			);
 			name = Cardio;
 			packageProductDependencies = (
-				8A928B9828E5CEFB00EADBA5 /* ACarousel */,
 			);
 			productName = "card-test";
 			productReference = 8AA5371C28E269E100146E99 /* Cardio.app */;
@@ -131,7 +131,6 @@
 			);
 			mainGroup = 8AA5371328E269E100146E99;
 			packageReferences = (
-				8A928B9728E5CEFB00EADBA5 /* XCRemoteSwiftPackageReference "ACarousel" */,
 			);
 			productRefGroup = 8AA5371D28E269E100146E99 /* Products */;
 			projectDirPath = "";
@@ -159,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D100000128E8000000AAA001 /* ExploitManager.swift in Sources */,
 				8A928B9D28E5E1EB00EADBA5 /* ImagePicker.swift in Sources */,
 				8A928BA128E5F04800EADBA5 /* ObjcHelper.m in Sources */,
 				8AA5372228E269E100146E99 /* ContentView.swift in Sources */,
@@ -390,24 +390,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		8A928B9728E5CEFB00EADBA5 /* XCRemoteSwiftPackageReference "ACarousel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JWAutumn/ACarousel";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8A928B9828E5CEFB00EADBA5 /* ACarousel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8A928B9728E5CEFB00EADBA5 /* XCRemoteSwiftPackageReference "ACarousel" */;
-			productName = ACarousel;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8AA5371428E269E100146E99 /* Project object */;
 }
