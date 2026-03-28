@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Resolve Swift packages
         run: |
@@ -26,6 +26,7 @@ jobs:
 
       - name: Build app (unsigned)
         run: |
+          set -o pipefail
           xcodebuild \
             -project Cardio.xcodeproj \
             -scheme Cardio \
@@ -36,7 +37,26 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
-            clean build
+            clean build 2>&1 | tee xcodebuild.log
+
+      - name: Surface xcodebuild errors
+        if: failure()
+        run: |
+          echo "Collecting xcodebuild error lines..."
+          ERR_LINES="$(grep -E "error:|fatal error:" xcodebuild.log | tail -n 40 || true)"
+          if [ -z "$ERR_LINES" ]; then
+            echo "::error::Build failed with exit code 65, but no explicit 'error:' line was found in xcodebuild.log"
+            tail -n 120 xcodebuild.log || true
+            exit 1
+          fi
+
+          echo "$ERR_LINES"
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            echo "::error::$line"
+          done <<< "$ERR_LINES"
+
+          exit 1
 
       - name: Package IPA
         run: |
@@ -57,3 +77,10 @@ jobs:
         with:
           name: cardio-unsigned-ipa
           path: Cardio-unsigned.ipa
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cardio-build-logs
+          path: xcodebuild.log
