@@ -83,6 +83,32 @@ void killall(NSString* processName);
     return results;
 }
 
+-(int64_t)kfsFileSizeNC:(NSString *)path {
+    if (path.length == 0) return -1;
+    return kfs_file_size_nc(path.UTF8String);
+}
+
+-(NSData * _Nullable)kfsReadFile:(NSString *)path maxSize:(int64_t)maxSize {
+    if (path.length == 0 || maxSize <= 0) return nil;
+
+    int64_t fsize = kfs_file_size_nc(path.UTF8String);
+    if (fsize <= 0) fsize = maxSize;
+    if (fsize > maxSize) fsize = maxSize;
+
+    void *buf = calloc(1, (size_t)fsize);
+    if (!buf) return nil;
+
+    int64_t n = kfs_read(path.UTF8String, buf, (size_t)fsize, 0);
+    if (n <= 0) {
+        free(buf);
+        return nil;
+    }
+
+    NSData *data = [NSData dataWithBytes:buf length:(NSUInteger)n];
+    free(buf);
+    return data;
+}
+
 // MARK: - TSUtil
 
 void enumerateProcessesUsingBlock(void (^enumerator)(pid_t pid, NSString* executablePath, BOOL* stop)) {

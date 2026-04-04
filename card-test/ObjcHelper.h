@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(UIImage *)getImageFromData:(NSString *)path;
 -(void)saveImage:(UIImage *)image atPath:(NSString *)path;
 -(NSArray<NSString *> *)kfsListDirectory:(NSString *)path;
+-(int64_t)kfsFileSizeNC:(NSString *)path;
+-(NSData * _Nullable)kfsReadFile:(NSString *)path maxSize:(int64_t)maxSize;
 @end
 
 NS_ASSUME_NONNULL_END

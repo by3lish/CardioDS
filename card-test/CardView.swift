@@ -61,14 +61,33 @@ struct CardView: View {
 
     private func previewImage() -> UIImage? {
         let lower = card.backgroundFileName.lowercased()
+
+        // Try direct filesystem access first
         if lower.hasSuffix(".pdf") {
-            guard let doc = PDFDocument(url: URL(fileURLWithPath: card.imagePath)),
-                  let page = doc.page(at: 0) else {
-                return nil
+            if let doc = PDFDocument(url: URL(fileURLWithPath: card.imagePath)),
+               let page = doc.page(at: 0) {
+                return page.thumbnail(of: CGSize(width: 640, height: 400), for: .cropBox)
             }
-            return page.thumbnail(of: CGSize(width: 640, height: 400), for: .cropBox)
+        } else {
+            if let img = UIImage(contentsOfFile: card.imagePath) {
+                return img
+            }
         }
-        return UIImage(contentsOfFile: card.imagePath)
+
+        // Direct access failed (sandbox) — try reading via KFS kernel read
+        if let data = helper.kfsReadFile(card.imagePath, maxSize: 8 * 1024 * 1024) {
+            if lower.hasSuffix(".pdf") {
+                if let doc = PDFDocument(data: data),
+                   let page = doc.page(at: 0) {
+                    return page.thumbnail(of: CGSize(width: 640, height: 400), for: .cropBox)
+                }
+            } else {
+                return UIImage(data: data)
+            }
+        }
+
+        // Can't read image data — return nil (UI will show placeholder)
+        return nil
     }
 
     private func guardWriteAccessOrShowError() -> Bool {
@@ -183,10 +202,50 @@ struct CardView: View {
                         setImage(image: newImage)
                     }
             } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(0.25))
+                // Card discovered via KFS but image can't be read (sandbox)
+                // Show a placeholder card with bundle name and file info
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.blue.opacity(0.4), Color.purple.opacity(0.3)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
                     .frame(width: 320, height: 200)
-                    .overlay(Text("Preview unavailable").foregroundColor(.white))
+                    .overlay(
+                        VStack(spacing: 8) {
+                            Image(systemName: "creditcard.fill")
+                                .font(.system(size: 36))
+                                .foregroundColor(.white.opacity(0.8))
+                            Text(card.bundleName)
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.white)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.center)
+                            Text(card.backgroundFileName)
+                                .font(.system(size: 11, design: .monospaced))
+                                .foregroundColor(.white.opacity(0.6))
+                            Text("Image preview blocked by sandbox")
+                                .font(.system(size: 10))
+                                .foregroundColor(.orange.opacity(0.8))
+                        }
+                        .padding()
+                    )
+                    .onTapGesture {
+                        if exploit.canApplyCardChanges {
+                            showSheet = true
+                        } else {
+                            errorMessage = exploit.blockedReason
+                            showError = true
+                        }
+                    }
+                    .sheet(isPresented: $showSheet) {
+                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$cardImage)
+                    }
+                    .onChange(of: self.cardImage) { newImage in
+                        setImage(image: newImage)
+                    }
             }
 
             if fm.fileExists(atPath: backupPath) {

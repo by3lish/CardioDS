@@ -58,6 +58,12 @@ struct ContentView: View {
             return []
         }
 
+        // Warm the namecache by touching the path — even if sandbox denies it,
+        // the kernel resolves path components and populates the name cache.
+        for variant in pathVariants(for: path) {
+            _ = access(variant, F_OK)
+        }
+
         for variant in pathVariants(for: path) {
             let viaKfs = helper.kfsListDirectory(variant)
             if !viaKfs.isEmpty {
@@ -284,6 +290,18 @@ struct ContentView: View {
         }
     }
 
+    private func openWalletApp() {
+        // Open Wallet so it reads card directories, warming the kernel namecache.
+        // After returning, a "Scan Again" will find entries via KFS.
+        for scheme in ["shoebox://", "wallet://"] {
+            if let url = URL(string: scheme), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+                return
+            }
+        }
+        exploit.addLog("Could not open Wallet app. Open it manually, then scan again.")
+    }
+
     private var exploitPanel: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Exploit Engine")
@@ -449,14 +467,29 @@ struct ContentView: View {
                             .font(.system(size: 11, design: .monospaced))
                             .foregroundColor(.white.opacity(0.75))
 
-                        Text(usedKfsForScan ? "Directory scan via KFS" : "Directory scan via direct filesystem")
+                        Text(usedKfsForScan ? "Directory scan via KFS (namecache)" : "Directory scan via direct filesystem")
                             .font(.system(size: 11, design: .monospaced))
                             .foregroundColor(.white.opacity(0.75))
 
-                        Button("Run All + Scan") {
-                            runAllAndReload()
+                        if exploit.kfsReady {
+                            Text("KFS namecache may be cold. Open Wallet first to warm it, then scan again.")
+                                .font(.system(size: 12))
+                                .foregroundColor(.orange)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 20)
                         }
-                        .foregroundColor(.white)
+
+                        HStack(spacing: 12) {
+                            Button("Open Wallet") {
+                                openWalletApp()
+                            }
+                            .foregroundColor(.cyan)
+
+                            Button("Run All + Scan") {
+                                runAllAndReload()
+                            }
+                            .foregroundColor(.white)
+                        }
 
                         Button("Scan Again") {
                             loadCards()
