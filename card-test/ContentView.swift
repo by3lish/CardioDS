@@ -313,8 +313,9 @@ struct ContentView: View {
                 .foregroundColor(exploit.canApplyCardChanges ? .green : .orange)
 
             Text(String(
-                format: "darksword=%@ | kfs=%@",
+                format: "darksword=%@ | sandbox=%@ | kfs=%@",
                 exploit.darkswordReady ? "ready" : "not-ready",
+                exploit.sandboxEscaped ? "escaped" : "blocked",
                 exploit.kfsReady ? "ready" : "not-ready"
             ))
             .font(.system(size: 12, weight: .regular, design: .monospaced))

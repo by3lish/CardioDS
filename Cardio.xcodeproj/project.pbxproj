@@ -18,6 +18,7 @@
 		D100000328E8000000AAA001 /* kfs.m in Sources */ = {isa = PBXBuildFile; fileRef = D100000728E8000000AAA001 /* kfs.m */; };
 		D100000428E8000000AAA001 /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D100000928E8000000AAA001 /* utils.m */; };
 		D100000128E8000000AAA001 /* ExploitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100000028E8000000AAA001 /* ExploitManager.swift */; };
+		D100001028E8000000AAA002 /* sandbox_escape.m in Sources */ = {isa = PBXBuildFile; fileRef = D100001128E8000000AAA002 /* sandbox_escape.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		D100000828E8000000AAA001 /* kfs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kfs.h; sourceTree = "<group>"; };
 		D100000928E8000000AAA001 /* utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = utils.m; sourceTree = "<group>"; };
 		D100000A28E8000000AAA001 /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		D100001128E8000000AAA002 /* sandbox_escape.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sandbox_escape.m; sourceTree = "<group>"; };
+		D100001228E8000000AAA002 /* sandbox_escape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sandbox_escape.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 				D100000828E8000000AAA001 /* kfs.h */,
 				D100000928E8000000AAA001 /* utils.m */,
 				D100000A28E8000000AAA001 /* utils.h */,
+				D100001128E8000000AAA002 /* sandbox_escape.m */,
+				D100001228E8000000AAA002 /* sandbox_escape.h */,
 			);
 			path = kexploit;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				D100000228E8000000AAA001 /* darksword.m in Sources */,
 				D100000328E8000000AAA001 /* kfs.m in Sources */,
 				D100000428E8000000AAA001 /* utils.m in Sources */,
+				D100001028E8000000AAA002 /* sandbox_escape.m in Sources */,
 				D100000128E8000000AAA001 /* ExploitManager.swift in Sources */,
 				8A928B9D28E5E1EB00EADBA5 /* ImagePicker.swift in Sources */,
 				8A928BA128E5F04800EADBA5 /* ObjcHelper.m in Sources */,
