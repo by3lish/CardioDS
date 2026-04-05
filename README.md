@@ -1,8 +1,9 @@
 # CardioDS
 
 > Customize your Apple Pay card artwork on iOS (17.2.1 - 26.0.1).
-iOS 26.0.1/iOS 18.7.1 is the max scope, anything more recent than that will likely never be compatible.
-only tested on 18.6.2 arm64e A18 Pro, if you are unable to make CardioDS work, message me on Discord:
+> iOS 26.0.1/iOS 18.7.1 is the max scope, anything more recent than that will likely never be compatible.
+> Only tested on 18.6.2 arm64e A18 Pro, if you are unable to make CardioDS work, message me on Discord: drkm43
+
 
 ---
 
