@@ -1,8 +1,8 @@
 # CardioDS
 
-> Customize your Apple Pay card artwork on iOS 18 — with auto kernel offset resolution.
-
-**Version 1.0** · iOS 17.2.1+ · Swift 5 · Xcode 14
+> Customize your Apple Pay card artwork on iOS (17.2.1 - 26.0.1).
+iOS 26.0.1/iOS 18.7.1 is the max scope, anything more recent than that will likely never be compatible.
+only tested on 18.6.2 arm64e A18 Pro, if you are unable to make CardioDS work, message me on Discord:
 
 ---
 
