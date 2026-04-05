@@ -21,50 +21,37 @@ struct CommunityCategory: Identifiable {
 
 private let builtInCards: [CommunityCard] = [
     // American Express
-    CommunityCard(id: "amex-gold", name: "Gold Card", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexgold.png", author: nil),
-    CommunityCard(id: "amex-platinum", name: "Platinum Card", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexplatinum.png", author: nil),
+    CommunityCard(id: "amex-gold", name: "Gold Card (Rose Gold)", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexrosegold.png", author: nil),
+    CommunityCard(id: "amex-platinum", name: "Platinum Card", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexplat.png", author: nil),
     CommunityCard(id: "amex-biz-gold", name: "Business Gold", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/cubelin/AMEXBizGold.png", author: nil),
     CommunityCard(id: "amex-biz-plat", name: "Business Platinum", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbizplat.png", author: nil),
     CommunityCard(id: "amex-blue-biz-plus", name: "Blue Business Plus", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbluebizplus.png", author: nil),
     CommunityCard(id: "amex-biz-green", name: "Business Green", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbusinessgreen.png", author: nil),
     CommunityCard(id: "amex-amazon-biz", name: "Amazon Business Prime", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexamazonbusinesspr.png", author: nil),
     CommunityCard(id: "amex-green", name: "Green Card", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexgreen.png", author: nil),
-    CommunityCard(id: "amex-cobalt", name: "Cobalt Card", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexcobalt.png", author: nil),
-    CommunityCard(id: "amex-centurion", name: "Centurion (Black)", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexcenturion.png", author: nil),
+    CommunityCard(id: "amex-everyday", name: "EveryDay", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexeveryday.png", author: nil),
+    CommunityCard(id: "amex-blue-cash", name: "Blue Cash", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbluecash.png", author: nil),
+    CommunityCard(id: "amex-hilton", name: "Hilton Honors", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexhiltonhonors.png", author: nil),
+    CommunityCard(id: "amex-hilton-surpass", name: "Hilton Surpass", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexhiltonsurpass.png", author: nil),
 
     // Chase
-    CommunityCard(id: "chase-sapphire-pref", name: "Sapphire Preferred", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasesapphireprefer.png", author: nil),
-    CommunityCard(id: "chase-sapphire-res", name: "Sapphire Reserve", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasesapphirereserv.png", author: nil),
-    CommunityCard(id: "chase-freedom-unl", name: "Freedom Unlimited", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasefreedomultimat.png", author: nil),
-    CommunityCard(id: "chase-amazon", name: "Amazon Prime Visa", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseamazon.png", author: nil),
+    CommunityCard(id: "chase-sapphire-pref", name: "Sapphire Preferred", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasesapphirepreferr.png", author: nil),
+    CommunityCard(id: "chase-sapphire-res", name: "Sapphire Reserve", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasesapphirereserve.png", author: nil),
+    CommunityCard(id: "chase-freedom", name: "Freedom", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasefreedom.png", author: nil),
+    CommunityCard(id: "chase-freedom-flex", name: "Freedom Flex", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasefreedomflex.png", author: nil),
+    CommunityCard(id: "chase-amazon", name: "Amazon Prime Visa", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseamazonprime.png", author: nil),
     CommunityCard(id: "chase-united-exp", name: "United Explorer", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseunitedexplorer.png", author: nil),
+    CommunityCard(id: "chase-ink-pref", name: "Ink Business Preferred", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseinkpreferred.png", author: nil),
 
     // Capital One
-    CommunityCard(id: "cap1-venture-x", name: "Venture X", issuer: "Capital One", category: "Capital One", imageURL: "https://u.cubeupload.com/ccbackground/capitalonventurex.png", author: nil),
-    CommunityCard(id: "cap1-venture", name: "Venture", issuer: "Capital One", category: "Capital One", imageURL: "https://u.cubeupload.com/ccbackground/capitalonventure.png", author: nil),
-    CommunityCard(id: "cap1-savor", name: "SavorOne", issuer: "Capital One", category: "Capital One", imageURL: "https://u.cubeupload.com/ccbackground/capitalonsavorone.png", author: nil),
-    CommunityCard(id: "cap1-quicksilver", name: "Quicksilver", issuer: "Capital One", category: "Capital One", imageURL: "https://u.cubeupload.com/ccbackground/capitalonquicksilve.png", author: nil),
+    CommunityCard(id: "cap1-quicksilver", name: "Quicksilver", issuer: "Capital One", category: "Capital One", imageURL: "https://u.cubeupload.com/ccbackground/quicksilver.png", author: nil),
 
     // Citi
-    CommunityCard(id: "citi-custom-cash", name: "Custom Cash", issuer: "Citi", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citicustomcash.png", author: nil),
     CommunityCard(id: "citi-double-cash", name: "Double Cash", issuer: "Citi", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citidoublecash.png", author: nil),
-    CommunityCard(id: "citi-premier", name: "Premier", issuer: "Citi", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citizpremier.png", author: nil),
-    CommunityCard(id: "citi-strata-premier", name: "Strata Premier", issuer: "Citi", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citiStrataPremier.png", author: nil),
-
-    // Discover
-    CommunityCard(id: "discover-it", name: "Discover it", issuer: "Discover", category: "Other US", imageURL: "https://u.cubeupload.com/ccbackground/discoverit.png", author: nil),
-
-    // US Bank
-    CommunityCard(id: "usbank-altitude-res", name: "Altitude Reserve", issuer: "US Bank", category: "Other US", imageURL: "https://u.cubeupload.com/ccbackground/usbankaltitudereser.png", author: nil),
-
-    // Wells Fargo
-    CommunityCard(id: "wf-autograph", name: "Autograph", issuer: "Wells Fargo", category: "Other US", imageURL: "https://u.cubeupload.com/ccbackground/wellsfargonautograp.png", author: nil),
+    CommunityCard(id: "citi-premier", name: "Premier", issuer: "Citi", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citipremier.png", author: nil),
 
     // Apple
     CommunityCard(id: "apple-card", name: "Apple Card", issuer: "Apple", category: "Other US", imageURL: "https://u.cubeupload.com/ccbackground/applecard.png", author: nil),
-
-    // Bilt
-    CommunityCard(id: "bilt-mc", name: "Bilt Mastercard", issuer: "Bilt", category: "Other US", imageURL: "https://u.cubeupload.com/ccbackground/bilt.png", author: nil),
 ]
 
 // MARK: - View Model
