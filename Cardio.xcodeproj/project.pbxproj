@@ -20,6 +20,7 @@
 		D100000128E8000000AAA001 /* ExploitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100000028E8000000AAA001 /* ExploitManager.swift */; };
 		D100001028E8000000AAA002 /* sandbox_escape.m in Sources */ = {isa = PBXBuildFile; fileRef = D100001128E8000000AAA002 /* sandbox_escape.m */; };
 		D100002028E8000000AAA003 /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100002128E8000000AAA003 /* CommunityView.swift */; };
+		D100003028E8000000AAA004 /* MyCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100003128E8000000AAA004 /* MyCardsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		D100001128E8000000AAA002 /* sandbox_escape.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sandbox_escape.m; sourceTree = "<group>"; };
 		D100001228E8000000AAA002 /* sandbox_escape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sandbox_escape.h; sourceTree = "<group>"; };
 		D100002128E8000000AAA003 /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
+		D100003128E8000000AAA004 /* MyCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				8A928BA728E706AF00EADBA5 /* CardView.swift */,
 				D100002128E8000000AAA003 /* CommunityView.swift */,
+				D100003128E8000000AAA004 /* MyCardsView.swift */,
 				8AA5371F28E269E100146E99 /* card_testApp.swift */,
 				D100000028E8000000AAA001 /* ExploitManager.swift */,
 				8AA5372128E269E100146E99 /* ContentView.swift */,
@@ -200,6 +203,7 @@
 				8AA5372028E269E100146E99 /* card_testApp.swift in Sources */,
 				8A928BA828E706AF00EADBA5 /* CardView.swift in Sources */,
 				D100002028E8000000AAA003 /* CommunityView.swift in Sources */,
+				D100003028E8000000AAA004 /* MyCardsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

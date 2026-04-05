@@ -6,6 +6,7 @@ struct CommunityCard: Identifiable, Codable {
     let id: String
     let name: String
     let issuer: String
+    let country: String
     let category: String
     let imageURL: String
     let author: String?
@@ -17,41 +18,54 @@ struct CommunityCategory: Identifiable {
     let cards: [CommunityCard]
 }
 
+struct CommunityCountrySection: Identifiable {
+    let id: String
+    let name: String
+    let flag: String
+    let categories: [CommunityCategory]
+}
+
 // MARK: - Built-in Catalog
 
 private let builtInCards: [CommunityCard] = [
-    // American Express
-    CommunityCard(id: "amex-gold", name: "Gold Card (Rose Gold)", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexrosegold.png", author: nil),
-    CommunityCard(id: "amex-platinum", name: "Platinum Card", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexplat.png", author: nil),
-    CommunityCard(id: "amex-biz-gold", name: "Business Gold", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/cubelin/AMEXBizGold.png", author: nil),
-    CommunityCard(id: "amex-biz-plat", name: "Business Platinum", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbizplat.png", author: nil),
-    CommunityCard(id: "amex-blue-biz-plus", name: "Blue Business Plus", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbluebizplus.png", author: nil),
-    CommunityCard(id: "amex-biz-green", name: "Business Green", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbusinessgreen.png", author: nil),
-    CommunityCard(id: "amex-amazon-biz", name: "Amazon Business Prime", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexamazonbusinesspr.png", author: nil),
-    CommunityCard(id: "amex-green", name: "Green Card", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexgreen.png", author: nil),
-    CommunityCard(id: "amex-everyday", name: "EveryDay", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexeveryday.png", author: nil),
-    CommunityCard(id: "amex-blue-cash", name: "Blue Cash", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbluecash.png", author: nil),
-    CommunityCard(id: "amex-hilton", name: "Hilton Honors", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexhiltonhonors.png", author: nil),
-    CommunityCard(id: "amex-hilton-surpass", name: "Hilton Surpass", issuer: "American Express", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexhiltonsurpass.png", author: nil),
+    // ── United States ── American Express ──
+    CommunityCard(id: "amex-gold", name: "Gold Card (Rose Gold)", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexrosegold.png", author: nil),
+    CommunityCard(id: "amex-platinum", name: "Platinum Card", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexplat.png", author: nil),
+    CommunityCard(id: "amex-biz-gold", name: "Business Gold", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/cubelin/AMEXBizGold.png", author: nil),
+    CommunityCard(id: "amex-biz-plat", name: "Business Platinum", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbizplat.png", author: nil),
+    CommunityCard(id: "amex-blue-biz-plus", name: "Blue Business Plus", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbluebizplus.png", author: nil),
+    CommunityCard(id: "amex-biz-green", name: "Business Green", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbusinessgreen.png", author: nil),
+    CommunityCard(id: "amex-amazon-biz", name: "Amazon Business Prime", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexamazonbusinesspr.png", author: nil),
+    CommunityCard(id: "amex-green", name: "Green Card", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexgreen.png", author: nil),
+    CommunityCard(id: "amex-everyday", name: "EveryDay", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexeveryday.png", author: nil),
+    CommunityCard(id: "amex-blue-cash", name: "Blue Cash", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexbluecash.png", author: nil),
+    CommunityCard(id: "amex-hilton", name: "Hilton Honors", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexhiltonhonors.png", author: nil),
+    CommunityCard(id: "amex-hilton-surpass", name: "Hilton Surpass", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexhiltonsurpass.png", author: nil),
+    CommunityCard(id: "amex-marriott-bonvoy", name: "Marriott Bonvoy", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexmarriottbonvoy.png", author: nil),
+    CommunityCard(id: "amex-marriott-bonvoy-brill", name: "Marriott Bonvoy Brilliant", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexmarriottbonvoybr.png", author: nil),
+    CommunityCard(id: "amex-delta-blue", name: "Delta SkyMiles Blue", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexdeltaskymilesblu.png", author: nil),
+    CommunityCard(id: "amex-delta-plat", name: "Delta SkyMiles Platinum", issuer: "American Express", country: "US", category: "Amex", imageURL: "https://u.cubeupload.com/ccbackground/amexdeltaskymilespla.png", author: nil),
 
-    // Chase
-    CommunityCard(id: "chase-sapphire-pref", name: "Sapphire Preferred", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasesapphirepreferr.png", author: nil),
-    CommunityCard(id: "chase-sapphire-res", name: "Sapphire Reserve", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasesapphirereserve.png", author: nil),
-    CommunityCard(id: "chase-freedom", name: "Freedom", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasefreedom.png", author: nil),
-    CommunityCard(id: "chase-freedom-flex", name: "Freedom Flex", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasefreedomflex.png", author: nil),
-    CommunityCard(id: "chase-amazon", name: "Amazon Prime Visa", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseamazonprime.png", author: nil),
-    CommunityCard(id: "chase-united-exp", name: "United Explorer", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseunitedexplorer.png", author: nil),
-    CommunityCard(id: "chase-ink-pref", name: "Ink Business Preferred", issuer: "Chase", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseinkpreferred.png", author: nil),
+    // ── United States ── Chase ──
+    CommunityCard(id: "chase-sapphire-pref", name: "Sapphire Preferred", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasesapphirepreferr.png", author: nil),
+    CommunityCard(id: "chase-sapphire-res", name: "Sapphire Reserve", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasesapphirereserve.png", author: nil),
+    CommunityCard(id: "chase-freedom", name: "Freedom", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasefreedom.png", author: nil),
+    CommunityCard(id: "chase-freedom-flex", name: "Freedom Flex", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasefreedomflex.png", author: nil),
+    CommunityCard(id: "chase-freedom-unlimited", name: "Freedom Unlimited", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chasefreedomunlimite.png", author: nil),
+    CommunityCard(id: "chase-amazon", name: "Amazon Prime Visa", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseamazonprime.png", author: nil),
+    CommunityCard(id: "chase-united-exp", name: "United Explorer", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseunitedexplorer.png", author: nil),
+    CommunityCard(id: "chase-ink-pref", name: "Ink Business Preferred", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseinkpreferred.png", author: nil),
+    CommunityCard(id: "chase-ink-cash", name: "Ink Business Cash", issuer: "Chase", country: "US", category: "Chase", imageURL: "https://u.cubeupload.com/ccbackground/chaseinkcash.png", author: nil),
 
-    // Capital One
-    CommunityCard(id: "cap1-quicksilver", name: "Quicksilver", issuer: "Capital One", category: "Capital One", imageURL: "https://u.cubeupload.com/ccbackground/quicksilver.png", author: nil),
+    // ── United States ── Capital One ──
+    CommunityCard(id: "cap1-quicksilver", name: "Quicksilver", issuer: "Capital One", country: "US", category: "Capital One", imageURL: "https://u.cubeupload.com/ccbackground/quicksilver.png", author: nil),
 
-    // Citi
-    CommunityCard(id: "citi-double-cash", name: "Double Cash", issuer: "Citi", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citidoublecash.png", author: nil),
-    CommunityCard(id: "citi-premier", name: "Premier", issuer: "Citi", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citipremier.png", author: nil),
+    // ── United States ── Citi ──
+    CommunityCard(id: "citi-double-cash", name: "Double Cash", issuer: "Citi", country: "US", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citidoublecash.png", author: nil),
+    CommunityCard(id: "citi-premier", name: "Premier", issuer: "Citi", country: "US", category: "Citi", imageURL: "https://u.cubeupload.com/ccbackground/citipremier.png", author: nil),
 
-    // Apple
-    CommunityCard(id: "apple-card", name: "Apple Card", issuer: "Apple", category: "Other US", imageURL: "https://u.cubeupload.com/ccbackground/applecard.png", author: nil),
+    // ── United States ── Other ──
+    CommunityCard(id: "apple-card", name: "Apple Card", issuer: "Apple", country: "US", category: "Other US", imageURL: "https://u.cubeupload.com/ccbackground/applecard.png", author: nil),
 ]
 
 // MARK: - View Model
@@ -59,42 +73,85 @@ private let builtInCards: [CommunityCard] = [
 @MainActor
 final class CommunityViewModel: ObservableObject {
     @Published var cards: [CommunityCard] = builtInCards
-    @Published var categories: [CommunityCategory] = []
+    @Published var countrySections: [CommunityCountrySection] = []
     @Published var searchText = ""
     @Published var downloadingIDs: Set<String> = []
     @Published var downloadedMessage: String?
 
+    private let countryOrder: [(code: String, name: String, flag: String)] = [
+        ("US", "United States", "🇺🇸"),
+        ("CA", "Canada", "🇨🇦"),
+        ("UK", "United Kingdom", "🇬🇧"),
+        ("JP", "Japan", "🇯🇵"),
+        ("CN", "China", "🇨🇳"),
+        ("KR", "South Korea", "🇰🇷"),
+        ("AU", "Australia", "🇦🇺"),
+        ("HK", "Hong Kong", "🇭🇰"),
+        ("SG", "Singapore", "🇸🇬"),
+        ("TW", "Taiwan", "🇹🇼"),
+    ]
+
+    private let categoryOrder = ["Amex", "Chase", "Capital One", "Citi", "Other US"]
+
     init() {
-        rebuildCategories()
+        rebuildSections()
     }
 
-    var filteredCategories: [CommunityCategory] {
-        if searchText.isEmpty { return categories }
+    var filteredSections: [CommunityCountrySection] {
+        if searchText.isEmpty { return countrySections }
         let q = searchText.lowercased()
-        return categories.compactMap { cat in
-            let filtered = cat.cards.filter {
-                $0.name.lowercased().contains(q) ||
-                $0.issuer.lowercased().contains(q) ||
-                $0.category.lowercased().contains(q)
+        return countrySections.compactMap { section in
+            let filteredCats = section.categories.compactMap { cat in
+                let filtered = cat.cards.filter {
+                    $0.name.lowercased().contains(q) ||
+                    $0.issuer.lowercased().contains(q) ||
+                    $0.category.lowercased().contains(q)
+                }
+                return filtered.isEmpty ? nil : CommunityCategory(id: cat.id, name: cat.name, cards: filtered)
             }
-            return filtered.isEmpty ? nil : CommunityCategory(id: cat.id, name: cat.name, cards: filtered)
+            return filteredCats.isEmpty ? nil : CommunityCountrySection(id: section.id, name: section.name, flag: section.flag, categories: filteredCats)
         }
     }
 
-    private func rebuildCategories() {
+    private func rebuildSections() {
+        // Group cards by country
+        var byCountry: [String: [CommunityCard]] = [:]
+        for card in cards {
+            byCountry[card.country, default: []].append(card)
+        }
+
+        var sections: [CommunityCountrySection] = []
+
+        for entry in countryOrder {
+            guard let countryCards = byCountry.removeValue(forKey: entry.code), !countryCards.isEmpty else { continue }
+            let cats = buildCategories(from: countryCards)
+            sections.append(CommunityCountrySection(id: entry.code, name: entry.name, flag: entry.flag, categories: cats))
+        }
+
+        // Any remaining countries not in the order
+        for (code, countryCards) in byCountry.sorted(by: { $0.key < $1.key }) {
+            let cats = buildCategories(from: countryCards)
+            sections.append(CommunityCountrySection(id: code, name: code, flag: "🌐", categories: cats))
+        }
+
+        countrySections = sections
+    }
+
+    private func buildCategories(from cards: [CommunityCard]) -> [CommunityCategory] {
         var dict: [String: [CommunityCard]] = [:]
         for card in cards {
             dict[card.category, default: []].append(card)
         }
-        let order = ["Amex", "Chase", "Capital One", "Citi", "Other US"]
-        categories = order.compactMap { key in
-            guard let list = dict[key] else { return nil }
-            return CommunityCategory(id: key, name: key, cards: list)
+        var cats: [CommunityCategory] = []
+        for key in categoryOrder {
+            if let list = dict.removeValue(forKey: key) {
+                cats.append(CommunityCategory(id: key, name: key, cards: list))
+            }
         }
-        // Any remaining categories not in the order
-        for (key, list) in dict where !order.contains(key) {
-            categories.append(CommunityCategory(id: key, name: key, cards: list))
+        for (key, list) in dict.sorted(by: { $0.key < $1.key }) {
+            cats.append(CommunityCategory(id: key, name: key, cards: list))
         }
+        return cats
     }
 
     func downloadCard(_ card: CommunityCard) {
@@ -175,23 +232,33 @@ struct CommunityView: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 16)
 
-                    // Card grid by category
-                    ForEach(vm.filteredCategories) { category in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(category.name)
-                                .font(.system(size: 18, weight: .semibold))
+                    // Card grid by country → category
+                    ForEach(vm.filteredSections) { section in
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("\(section.flag) \(section.name)")
+                                .font(.system(size: 20, weight: .bold))
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 16)
 
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 12) {
-                                    ForEach(category.cards) { card in
-                                        CommunityCardCell(card: card, vm: vm)
+                            ForEach(section.categories) { category in
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text(category.name)
+                                        .font(.system(size: 16, weight: .semibold))
+                                        .foregroundColor(.white.opacity(0.85))
+                                        .padding(.horizontal, 16)
+
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 12) {
+                                            ForEach(category.cards) { card in
+                                                CommunityCardCell(card: card, vm: vm)
+                                            }
+                                        }
+                                        .padding(.horizontal, 16)
                                     }
                                 }
-                                .padding(.horizontal, 16)
                             }
                         }
+                        .padding(.bottom, 8)
                     }
 
                     // Attribution

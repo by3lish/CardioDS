@@ -364,12 +364,6 @@ struct ContentView: View {
                                 .foregroundColor(.orange)
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal, 20)
-                        } else if exploit.kfsReady {
-                            Text("KFS namecache may be cold. Open Wallet first to warm it, then scan again.")
-                                .font(.system(size: 12))
-                                .foregroundColor(.orange)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 20)
                         }
 
                         HStack(spacing: 12) {
@@ -425,10 +419,9 @@ struct ContentView: View {
 
                     Group {
                         Text(String(
-                            format: "darksword=%@ | sandbox=%@ | kfs=%@",
+                            format: "darksword=%@ | sandbox=%@",
                             exploit.darkswordReady ? "ready" : "not-ready",
-                            exploit.sandboxEscaped ? "escaped" : "blocked",
-                            exploit.kfsReady ? "ready" : "not-ready"
+                            exploit.sandboxEscaped ? "escaped" : "blocked"
                         ))
 
                         Text(exploit.hasKernprocOffset
@@ -437,7 +430,6 @@ struct ContentView: View {
                         .foregroundColor(exploit.hasKernprocOffset ? .green.opacity(0.9) : .orange)
 
                         Text("cards_root=\(detectedCardsRoot)")
-                        Text("scan_mode=\(usedKfsForScan ? "kfs" : "direct")")
 
                         if exploit.darkswordReady {
                             Text(String(
@@ -469,27 +461,44 @@ struct ContentView: View {
                     }
 
                     HStack(spacing: 10) {
-                        Button(exploit.darkswordRunning ? "Running..." : "Run DarkSword") {
-                            exploit.runDarksword { _ in
-                                recheckAndReload()
+                        if !exploit.darkswordReady {
+                            Button(exploit.darkswordRunning ? "Running..." : "Run DarkSword") {
+                                exploit.runDarksword { _ in
+                                    recheckAndReload()
+                                }
                             }
+                            .disabled(exploit.darkswordRunning || exploit.kfsRunning)
+                            .foregroundColor(.white)
                         }
-                        .disabled(exploit.darkswordRunning || exploit.kfsRunning)
-                        .foregroundColor(.white)
 
-                        Button(exploit.kfsRunning ? "Init KFS..." : "Init KFS") {
-                            exploit.initKFS { _ in
-                                recheckAndReload()
+                        if exploit.darkswordReady && !exploit.sandboxEscaped {
+                            Button("Escape Sandbox") {
+                                exploit.escapeSandbox { _ in
+                                    recheckAndReload()
+                                }
                             }
+                            .disabled(exploit.darkswordRunning || exploit.kfsRunning)
+                            .foregroundColor(.white)
                         }
-                        .disabled(exploit.darkswordRunning || exploit.kfsRunning)
-                        .foregroundColor(.white)
 
-                        Button("Run All") {
-                            runAllAndReload()
+                        if !exploit.sandboxEscaped {
+                            Button("Run All") {
+                                runAllAndReload()
+                            }
+                            .disabled(exploit.darkswordRunning || exploit.kfsRunning)
+                            .foregroundColor(.white)
                         }
-                        .disabled(exploit.darkswordRunning || exploit.kfsRunning)
-                        .foregroundColor(.white)
+                    }
+
+                    if exploit.darkswordReady && exploit.sandboxEscaped {
+                        HStack(spacing: 6) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                            Text("Exploit complete — sandbox escaped")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.green)
+                        }
+                        .padding(.vertical, 4)
                     }
 
                     Button("Copy Logs") {
@@ -522,19 +531,26 @@ struct ContentView: View {
                 }
                 .tag(0)
 
+            MyCardsView(exploit: exploit, cards: cards)
+                .tabItem {
+                    Image(systemName: "tray.full.fill")
+                    Text("My Cards")
+                }
+                .tag(1)
+
             CommunityView()
                 .tabItem {
                     Image(systemName: "globe")
                     Text("Community")
                 }
-                .tag(1)
+                .tag(2)
 
             exploitTab
                 .tabItem {
                     Image(systemName: "terminal.fill")
                     Text("Exploit")
                 }
-                .tag(2)
+                .tag(3)
         }
         .accentColor(.white)
         .onAppear {
