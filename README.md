@@ -2,11 +2,11 @@
 
 ![87](https://user-images.githubusercontent.com/29115431/193304861-3eb9f323-8d9e-46d9-a539-26565a655832.png)
 
-> **⚠️ LiveContainer is NOT compatible.** CardioDS requires direct sideloading (SideStore, AltStore, TrollStore, or Xcode). LiveContainer sandboxing prevents the kernel exploit from functioning.
+> **⚠️ LiveContainer is NOT compatible.** CardioDS requires direct sideloading (SideStore or your preferred method).
 
 ## Features
 
-- **Apple Pay card customization** — Replace card background images directly from your photo library or the Files app
+- **Apple Wallet card customization** — Replace card background images directly from your photo library or the Files app
 - **Card number editor** — Read and edit the last 4 digits displayed on your card (primaryAccountSuffix in pass.json), with automatic backup/restore
 - **Auto kernproc offset resolution** — Downloads your device's kernelcache and resolves kernel offsets via XPF (XNU PatchFinder)
 - **Integrated exploit engine** — DarkSword + sandbox escape, all built-in
@@ -21,9 +21,9 @@
 
 - **iOS 26.0.1 / iOS 18.7.1 is the maximum scope** — anything more recent will likely never be compatible
 - **Only tested on 18.6.2 arm64e A18 Pro** — if you are unable to make CardioDS work, report it through Discord or GitHub Issues
-- **Sideload only** — LiveContainer, trollapps, and other container-based install methods are NOT supported. Use SideStore, AltStore, TrollStore, or direct Xcode sideloading
-- **Community Cards tab may load slowly** — The catalog contains hundreds of high-resolution card images; loading times depend on your network speed
-- **Submitted card image quality** — Cards submitted through the app are compressed to base64 JPEG to fit within GitHub's issue body limits (65,536 characters). This may noticeably reduce image quality compared to the original. For best results, submit images at card resolution (1536×969 or similar) with clean backgrounds
+- **Sideload only** — LiveContainer, is NOT supported and never will be supported, don't ask for it.
+- **Community Cards tab may load slowly** — The catalog contains hundreds of high-resolution card images; it may take a little while for the tab to load.
+- **Submitted card image quality** — Cards submitted through the app are compressed to base64 JPEG to fit within GitHub's issue body limits (65,536 characters). This may noticeably reduce image quality compared to the original. For best results, submit images at card resolution (1536×969 or similar) with clean backgrounds, i will try to find a solution to this on future releases.
 
 ## How It Works
 
@@ -90,7 +90,7 @@ Alternatively, exploit execution could take from seconds to minutes, be patient.
 
 ## Known Issues
 
-- **Community Cards search crash** — Rapidly deleting text in the search bar may cause the app to crash on some devices. This is a SwiftUI layout issue triggered by large view hierarchy changes when the result set shifts from a few filtered cards back to 300+ cards. **Workaround:** clear the search field in one tap (long-press → Select All → Delete) instead of holding backspace, or scroll manually instead of using search.
+- **Community Cards search crash** — Rapidly deleting text in the search bar may cause the app to crash on some devices. This is a SwiftUI layout issue triggered by large view hierarchy changes when the result set shifts from a few filtered cards back to 300+ cards. **Workaround:** clear the search field in one tap (long-press → Select All → Delete) instead of holding backspace, or scroll manually instead of using search. This will be fixed on future releases.
 
 ## Architecture
 
@@ -133,7 +133,7 @@ community-cards/
 
 Help build the community card catalog! You can submit designs directly from the app:
 
-#### From My Cards (existing Apple Pay cards)
+#### From My Cards (existing Apple Wallet cards)
 1. Go to the **Cards** tab and apply the card background you'd like to share
 2. Go to **My Cards** → tap **Backup All Current Cards** to save it
 3. Find the card in your saved list and tap the green **Submit** button (↑)
@@ -159,9 +159,7 @@ Help build the community card catalog! You can submit designs directly from the 
 **Requirements for submissions:**
 - Include the card name, issuer, and country
 - One card per submission
-- Submitted card images must not contain personal information (card numbers are automatically stripped by Apple Pay)
-
-You can also browse the [source catalog on Dynalist](https://dynalist.io/d/ldKY6rbMR3LPnWz4fTvf_HCh) for cards that haven't been added yet.
+- Submitted card images must not contain any personal information (card numbers are automatically stripped by Apple Wallet)
 
 ## Support
 
