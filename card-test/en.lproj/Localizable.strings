@@ -113,3 +113,6 @@
 "mycards_submit_opened" = "Opening GitHub to submit your card...";
 "mycards_submit_error" = "Could not open GitHub.";
 "mycards_submit_read_error" = "Could not read card data.";
+
+/* Settings */
+"settings_system_language" = "System Language";

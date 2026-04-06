@@ -181,7 +181,7 @@ struct CardView: View {
 
         guard let data = readPassJson(),
               var json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            errorMessage = NSLocalizedString("card_number_read_error", comment: "")
+            errorMessage = L("card_number_read_error")
             showError = true
             return
         }
@@ -211,7 +211,7 @@ struct CardView: View {
         if !guardWriteAccessOrShowError() { return }
 
         guard fm.fileExists(atPath: passJsonBackupPath) || readPassJson() != nil else {
-            errorMessage = NSLocalizedString("card_number_no_backup", comment: "")
+            errorMessage = L("card_number_no_backup")
             showError = true
             return
         }
@@ -464,7 +464,7 @@ struct CardView: View {
             Text("card_saved_message")
         }
         .alert("card_rename_title", isPresented: $showNicknameEditor) {
-            TextField(NSLocalizedString("card_nickname_placeholder", comment: ""), text: $nicknameInput)
+            TextField(L("card_nickname_placeholder"), text: $nicknameInput)
             Button("card_rename_save") {
                 CardNicknameManager.shared.setNickname(nicknameInput.isEmpty ? nil : nicknameInput, for: card.directoryPath)
             }
@@ -477,7 +477,7 @@ struct CardView: View {
             Text("card_rename_message")
         }
         .alert("card_number_title", isPresented: $showCardNumberEditor) {
-            TextField(NSLocalizedString("card_number_placeholder", comment: ""), text: $cardNumberInput)
+            TextField(L("card_number_placeholder"), text: $cardNumberInput)
             Button("card_rename_save") {
                 applyCardNumber(cardNumberInput)
             }
@@ -489,8 +489,8 @@ struct CardView: View {
             Button("card_cancel", role: .cancel) {}
         } message: {
             Text(currentCardNumber.isEmpty
-                 ? NSLocalizedString("card_number_message_empty", comment: "")
-                 : String(format: NSLocalizedString("card_number_message", comment: ""), currentCardNumber))
+                 ? L("card_number_message_empty")
+                 : String(format: L("card_number_message"), currentCardNumber))
         }
     }
 }

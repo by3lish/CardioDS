@@ -106,3 +106,6 @@
 "mycards_submit_opened" = "GitHub wird geoeffnet, um deine Karte einzureichen...";
 "mycards_submit_error" = "GitHub konnte nicht geoeffnet werden.";
 "mycards_submit_read_error" = "Kartendaten konnten nicht gelesen werden.";
+
+/* Settings */
+"settings_system_language" = "Systemsprache";

@@ -105,3 +105,6 @@
 "mycards_submit_opened" = "GitHubを開いてカードを送信します...";
 "mycards_submit_error" = "GitHubを開けませんでした。";
 "mycards_submit_read_error" = "カードデータを読み込めませんでした。";
+
+/* Settings */
+"settings_system_language" = "システム言語";

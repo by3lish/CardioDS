@@ -24,6 +24,7 @@
 		D200000128E9000000BBB001 /* offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = D200000228E9000000BBB001 /* offsets.m */; };
 		D200001028E9000000BBB010 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D200001128E9000000BBB010 /* Localizable.strings */; };
 		D300000128EA000000CCC001 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300000228EA000000CCC001 /* DocumentPicker.swift */; };
+		D500000128EC000000EEE001 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D500000228EC000000EEE001 /* LanguageManager.swift */; };
 		D400000128EB000000DDD001 /* libxpf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D400000228EB000000DDD001 /* libxpf.dylib */; };
 		D400000328EB000000DDD001 /* libxpf.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D400000228EB000000DDD001 /* libxpf.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D400000428EB000000DDD001 /* libgrabkernel2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D400000528EB000000DDD001 /* libgrabkernel2.dylib */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		8A928B9C28E5E1EB00EADBA5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		D300000228EA000000CCC001 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		D500000228EC000000EEE001 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		8A928B9F28E5F04800EADBA5 /* card-test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "card-test-Bridging-Header.h"; sourceTree = "<group>"; };
 		8A928BA028E5F04800EADBA5 /* ObjcHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcHelper.m; sourceTree = "<group>"; };
 		8A928BA228E5F06D00EADBA5 /* ObjcHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjcHelper.h; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				D100000B28E8000000AAA001 /* kexploit */,
 				8A928B9C28E5E1EB00EADBA5 /* ImagePicker.swift */,
 				D300000228EA000000CCC001 /* DocumentPicker.swift */,
+				D500000228EC000000EEE001 /* LanguageManager.swift */,
 				8A928BA028E5F04800EADBA5 /* ObjcHelper.m */,
 				8A928B9F28E5F04800EADBA5 /* card-test-Bridging-Header.h */,
 				8A928BA228E5F06D00EADBA5 /* ObjcHelper.h */,
@@ -273,6 +276,7 @@
 				D100000128E8000000AAA001 /* ExploitManager.swift in Sources */,
 				8A928B9D28E5E1EB00EADBA5 /* ImagePicker.swift in Sources */,
 				D300000128EA000000CCC001 /* DocumentPicker.swift in Sources */,
+				D500000128EC000000EEE001 /* LanguageManager.swift in Sources */,
 				8A928BA128E5F04800EADBA5 /* ObjcHelper.m in Sources */,
 				8AA5372228E269E100146E99 /* ContentView.swift in Sources */,
 				8AA5372028E269E100146E99 /* card_testApp.swift in Sources */,

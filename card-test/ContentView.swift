@@ -3,12 +3,12 @@ import UIKit
 
 struct ContentView: View {
     @StateObject private var exploit = ExploitManager.shared
+    @ObservedObject private var langMgr = LanguageManager.shared
     @State private var selectedTab = 0
     @State private var showNoCardsError = false
     @State private var cards: [Card] = []
     @State private var detectedCardsRoot = "not-detected"
     @State private var offsetInput = ""
-
 
     private let helper = ObjcHelper()
 
@@ -339,7 +339,7 @@ struct ContentView: View {
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.red)
 
-                        Text(String(format: NSLocalizedString("cards_path_label", comment: ""), detectedCardsRoot))
+                        Text(String(format: L("cards_path_label"), detectedCardsRoot))
                             .font(.system(size: 11, design: .monospaced))
                             .foregroundColor(.white.opacity(0.75))
 
@@ -365,9 +365,53 @@ struct ContentView: View {
             .alert(isPresented: $showNoCardsError) {
                 Alert(
                     title: Text("cards_none_found_alert"),
-                    message: Text(String(format: NSLocalizedString("cards_last_root", comment: ""), detectedCardsRoot))
+                    message: Text(String(format: L("cards_last_root"), detectedCardsRoot))
                 )
             }
+        }
+        .overlay(alignment: .topTrailing) {
+            languageMenu
+                .padding(.top, 8)
+                .padding(.trailing, 16)
+        }
+    }
+
+    // MARK: - Language Menu
+
+    private var languageMenu: some View {
+        Menu {
+            Button {
+                langMgr.currentLanguage = "system"
+            } label: {
+                HStack {
+                    Text("🌐  " + L("settings_system_language"))
+                    if langMgr.currentLanguage == "system" {
+                        Image(systemName: "checkmark")
+                    }
+                }
+            }
+
+            Divider()
+
+            ForEach(LanguageManager.supportedLanguages) { lang in
+                Button {
+                    langMgr.currentLanguage = lang.id
+                } label: {
+                    HStack {
+                        Text(lang.name)
+                        if langMgr.currentLanguage == lang.id {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+        } label: {
+            Image(systemName: "gearshape.fill")
+                .font(.system(size: 20))
+                .foregroundColor(.white.opacity(0.7))
+                .padding(8)
+                .background(Color.white.opacity(0.1))
+                .clipShape(Circle())
         }
     }
 
@@ -418,7 +462,7 @@ struct ContentView: View {
                     .foregroundColor(.white.opacity(0.8))
 
                     HStack(spacing: 8) {
-                        TextField(NSLocalizedString("exploit_offset_placeholder", comment: ""), text: $offsetInput)
+                        TextField(L("exploit_offset_placeholder"), text: $offsetInput)
                             .textFieldStyle(.roundedBorder)
 
                         Button("exploit_set") {
@@ -431,7 +475,7 @@ struct ContentView: View {
                     }
 
                     HStack(spacing: 10) {
-                        Button(exploit.xpfResolving ? NSLocalizedString("exploit_resolving", comment: "") : NSLocalizedString("exploit_resolve_offsets", comment: "")) {
+                        Button(exploit.xpfResolving ? L("exploit_resolving") : L("exploit_resolve_offsets")) {
                             exploit.resolveOffsetsViaXPF { _ in
                                 refreshOffsetInputFromState()
                                 recheckAndReload()
@@ -448,7 +492,7 @@ struct ContentView: View {
                     }
 
                     HStack(spacing: 10) {
-                        Button(exploit.darkswordRunning ? NSLocalizedString("exploit_running", comment: "") : NSLocalizedString("exploit_run_darksword", comment: "")) {
+                        Button(exploit.darkswordRunning ? L("exploit_running") : L("exploit_run_darksword")) {
                             exploit.runDarksword { _ in
                                 recheckAndReload()
                             }
@@ -488,7 +532,7 @@ struct ContentView: View {
                     }
                     .foregroundColor(.white)
 
-                    Text(exploit.logText.isEmpty ? NSLocalizedString("exploit_no_logs", comment: "") : exploit.logText)
+                    Text(exploit.logText.isEmpty ? L("exploit_no_logs") : exploit.logText)
                         .font(.system(size: 11, design: .monospaced))
                         .foregroundColor(Color.green.opacity(0.9))
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -533,6 +577,7 @@ struct ContentView: View {
                 }
                 .tag(3)
         }
+        .environment(\.locale, langMgr.locale)
         .accentColor(.white)
         .onAppear {
             // Dark tab bar

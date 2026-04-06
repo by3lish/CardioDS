@@ -688,7 +688,7 @@ struct CommunityView: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
-                        TextField(NSLocalizedString("community_search", comment: ""), text: $vm.searchText)
+                        TextField(L("community_search"), text: $vm.searchText)
                             .foregroundColor(.white)
                     }
                     .padding(10)
@@ -787,17 +787,17 @@ struct CommunityView: View {
             Text(vm.downloadedMessage ?? "")
         }
         .confirmationDialog(
-            NSLocalizedString("community_save_where", comment: ""),
+            L("community_save_where"),
             isPresented: $showSaveChoice,
             titleVisibility: .visible
         ) {
-            Button(NSLocalizedString("community_save_gallery", comment: "")) {
+            Button(L("community_save_gallery")) {
                 vm.saveToGallery()
             }
-            Button(NSLocalizedString("community_save_documents", comment: "")) {
+            Button(L("community_save_documents")) {
                 vm.saveToDocuments()
             }
-            Button(NSLocalizedString("card_cancel", comment: ""), role: .cancel) {
+            Button(L("card_cancel"), role: .cancel) {
                 vm.clearPending()
             }
         }

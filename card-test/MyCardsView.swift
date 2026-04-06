@@ -121,7 +121,7 @@ final class MyCardsViewModel: ObservableObject {
         guard let data = imageDataFor(card),
               let image = UIImage(data: data),
               let pngData = image.pngData() else {
-            statusMessage = NSLocalizedString("mycards_submit_read_error", comment: "")
+            statusMessage = L("mycards_submit_read_error")
             return
         }
 
@@ -154,12 +154,12 @@ final class MyCardsViewModel: ObservableObject {
         ]
 
         guard let url = urlComponents.url else {
-            statusMessage = NSLocalizedString("mycards_submit_error", comment: "")
+            statusMessage = L("mycards_submit_error")
             return
         }
 
         UIApplication.shared.open(url)
-        statusMessage = NSLocalizedString("mycards_submit_opened", comment: "")
+        statusMessage = L("mycards_submit_opened")
     }
 }
 
@@ -255,22 +255,22 @@ struct MyCardsView: View {
         .onChange(of: vm.statusMessage) { msg in
             if msg != nil { showAlert = true }
         }
-        .alert(NSLocalizedString("mycards_title", comment: ""), isPresented: $showAlert) {
+        .alert(L("mycards_title"), isPresented: $showAlert) {
             Button("card_ok") { vm.statusMessage = nil }
         } message: {
             Text(vm.statusMessage ?? "")
         }
-        .alert(NSLocalizedString("mycards_delete_title", comment: ""), isPresented: .init(
+        .alert(L("mycards_delete_title"), isPresented: .init(
             get: { cardToDelete != nil },
             set: { if !$0 { cardToDelete = nil } }
         )) {
-            Button(NSLocalizedString("mycards_delete", comment: ""), role: .destructive) {
+            Button(L("mycards_delete"), role: .destructive) {
                 if let card = cardToDelete {
                     vm.deleteCard(card)
                     cardToDelete = nil
                 }
             }
-            Button(NSLocalizedString("card_cancel", comment: ""), role: .cancel) {
+            Button(L("card_cancel"), role: .cancel) {
                 cardToDelete = nil
             }
         } message: {

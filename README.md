@@ -84,6 +84,7 @@ card-test/
 ├── MyCardsView.swift          # Card backup/restore management
 ├── CommunityView.swift        # Community card catalog browser
 ├── ExploitManager.swift       # Exploit state machine + XPF integration
+├── LanguageManager.swift      # In-app language override (persisted)
 ├── card_testApp.swift         # App entry point + offset init
 ├── ImagePicker.swift          # Photo library picker
 ├── DocumentPicker.swift       # Files app document picker
@@ -109,6 +110,24 @@ card-test/
 ## Community
 
 [![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&logoColor=white)](https://discord.com/invite/77FT6fNmBc)
+
+### Contributing Card Designs
+
+Help build the community card catalog! If you have a card design that isn't in the built-in catalog, you can submit it directly from the app:
+
+1. Go to the **Cards** tab and apply the card background you'd like to share
+2. Go to **My Cards** → tap **Backup All Current Cards** to save it
+3. Find the card in your saved list and tap the green **Submit** button (↑)
+4. This opens a pre-filled GitHub Issue — review the contents and click **Submit new issue**
+5. A maintainer will review and add your card to the built-in catalog
+
+**Requirements for submissions:**
+- Image should be a high-resolution card background (ideally 1380×870 or similar 16:10 ratio)
+- Include the card name, issuer, and country in the issue title
+- One card per issue — submit multiple issues for multiple cards
+- Submitted card images must not contain personal information (card number is automatically stripped by Apple Pay)
+
+You can also browse the [source catalog on Dynalist](https://dynalist.io/d/ldKY6rbMR3LPnWz4fTvf_HCh) for cards that haven't been added yet.
 
 ## Support
 

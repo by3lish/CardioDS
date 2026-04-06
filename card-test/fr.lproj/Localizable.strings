@@ -106,3 +106,6 @@
 "mycards_submit_opened" = "Ouverture de GitHub pour soumettre votre carte...";
 "mycards_submit_error" = "Impossible d'ouvrir GitHub.";
 "mycards_submit_read_error" = "Impossible de lire les données de la carte.";
+
+/* Settings */
+"settings_system_language" = "Langue du Système";
