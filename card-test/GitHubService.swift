@@ -175,8 +175,9 @@ enum GitHubService {
 
         // Still too large — progressively shrink dimensions
         var scale: CGFloat = 0.75
-        while scale >= 0.2 {
-            let newSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+        while scale >= 0.05 {
+            let newSize = CGSize(width: max(1, image.size.width * scale),
+                                 height: max(1, image.size.height * scale))
             let renderer = UIGraphicsImageRenderer(size: newSize)
             let scaled = renderer.image { _ in image.draw(in: CGRect(origin: .zero, size: newSize)) }
             for q in [0.3, 0.1, 0.01] as [CGFloat] {
@@ -184,9 +185,14 @@ enum GitHubService {
                     return data
                 }
             }
-            scale -= 0.15
+            scale -= 0.10
         }
-        return nil
+
+        // Absolute last resort — tiny thumbnail
+        let tiny = CGSize(width: 320, height: 200)
+        let renderer = UIGraphicsImageRenderer(size: tiny)
+        let thumb = renderer.image { _ in image.draw(in: CGRect(origin: .zero, size: tiny)) }
+        return thumb.jpegData(compressionQuality: 0.01)
     }
 
     // MARK: - Image Resize
