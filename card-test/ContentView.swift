@@ -470,7 +470,6 @@ struct ContentView: View {
                         .disabled(exploit.darkswordRunning || exploit.sandboxEscaped)
                         .foregroundColor(.cyan)
                     }
-                    }
 
                     if exploit.darkswordReady && exploit.sandboxEscaped {
                         HStack(spacing: 6) {
