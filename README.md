@@ -2,6 +2,8 @@
 
 ![87](https://user-images.githubusercontent.com/29115431/193304861-3eb9f323-8d9e-46d9-a539-26565a655832.png)
 
+> **⚠️ LiveContainer is NOT compatible.** CardioDS requires direct sideloading (SideStore, AltStore, TrollStore, or Xcode). LiveContainer sandboxing prevents the kernel exploit from functioning.
+
 ## Features
 
 - **Apple Pay card customization** — Replace card background images directly from your photo library or the Files app
@@ -9,11 +11,19 @@
 - **Auto kernproc offset resolution** — Downloads your device's kernelcache and resolves kernel offsets via XPF (XNU PatchFinder)
 - **Integrated exploit engine** — DarkSword + sandbox escape, all built-in
 - **Card management** — Backup, restore, rename cards with nicknames
-- **Community cards** — Browse and download card designs from a built-in (hopefully) community-driven catalog
+- **My Cards** — Save and submit card designs to the community catalog with card name, issuer, and country metadata
+- **Community Cards** — Browse and download 300+ card designs from a community-driven catalog, with remote updates that don't require a rebuild
+- **Custom card submissions** — Submit your own card artwork directly from the app for review
+- **Auto-approve pipeline** — Approved submissions are automatically added to the remote catalog via GitHub Actions
 - **8-language localization** — English, Spanish, French, Italian, German, Russian, Chinese (Simplified), Japanese
-  
-- **iOS 26.0.1/iOS 18.7.1 is the max scope, anything more recent than that will likely never be compatible**
-- **Only tested on 18.6.2 arm64e A18 Pro, if you are unable to make CardioDS work report it through Discord or GitHub issues**
+
+### Important Notes
+
+- **iOS 26.0.1 / iOS 18.7.1 is the maximum scope** — anything more recent will likely never be compatible
+- **Only tested on 18.6.2 arm64e A18 Pro** — if you are unable to make CardioDS work, report it through Discord or GitHub Issues
+- **Sideload only** — LiveContainer, trollapps, and other container-based install methods are NOT supported. Use SideStore, AltStore, TrollStore, or direct Xcode sideloading
+- **Community Cards tab may load slowly** — The catalog contains hundreds of high-resolution card images; loading times depend on your network speed
+- **Submitted card image quality** — Cards submitted through the app are compressed to base64 JPEG to fit within GitHub's issue body limits (65,536 characters). This may noticeably reduce image quality compared to the original. For best results, submit images at card resolution (1536×969 or similar) with clean backgrounds
 
 ## How It Works
 
@@ -28,18 +38,21 @@
 ### 1. Clone
 
 ```bash
-git clone https://github.com/cisc0disco/CardioDS.git
+git clone https://github.com/drkm9743/CardioDS.git
 cd CardioDS
 ```
 
 ### 2. Download XPF + libgrabkernel2 dylibs
 
 ```bash
-chmod +x setup_xpf.sh
-./setup_xpf.sh
+mkdir -p card-test/lib
+curl -L -o card-test/lib/libgrabkernel2.dylib \
+  https://github.com/rooootdev/lara/raw/main/lara/lib/libgrabkernel2.dylib
+curl -L -o card-test/lib/libxpf.dylib \
+  https://github.com/rooootdev/lara/raw/main/lara/lib/libxpf.dylib
 ```
 
-This downloads `libxpf.dylib` and `libgrabkernel2.dylib` from Lara's repository into `card-test/lib/`.
+This downloads `libxpf.dylib` and `libgrabkernel2.dylib` from Lara's repository into `card-test/lib/`. If the downloads fail, grab them manually from [rooootdev/lara](https://github.com/rooootdev/lara/tree/main/lara/lib).
 
 ### 3. Xcode setup
 
@@ -75,14 +88,19 @@ The exploit execution could trigger reboots on your device, don't consider it as
 
 Alternatively, exploit execution could take from seconds to minutes, be patient.
 
+## Known Issues
+
+- **Community Cards search crash** — Rapidly deleting text in the search bar may cause the app to crash on some devices. This is a SwiftUI layout issue triggered by large view hierarchy changes when the result set shifts from a few filtered cards back to 300+ cards. **Workaround:** clear the search field in one tap (long-press → Select All → Delete) instead of holding backspace, or scroll manually instead of using search.
+
 ## Architecture
 
 ```
 card-test/
 ├── ContentView.swift          # Main tab view (Cards, My Cards, Community, Exploit)
 ├── CardView.swift             # Individual card display + replacement
-├── MyCardsView.swift          # Card backup/restore management
-├── CommunityView.swift        # Community card catalog browser
+├── MyCardsView.swift          # Card backup/restore + submit to community
+├── CommunityView.swift        # Community card catalog (built-in + remote)
+├── GitHubService.swift        # GitHub Issues API for card submissions
 ├── ExploitManager.swift       # Exploit state machine + XPF integration
 ├── LanguageManager.swift      # In-app language override (persisted)
 ├── card_testApp.swift         # App entry point + offset init
@@ -97,14 +115,14 @@ card-test/
 │   ├── offsets.h/m            # XPF-based auto offset resolution
 │   ├── xpf_minimal.h          # Minimal XPF struct declarations
 │   └── libgrabkernel2.h       # Kernelcache download API
-├── en.lproj/Localizable.strings
-├── es.lproj/Localizable.strings
-├── fr.lproj/Localizable.strings
-├── it.lproj/Localizable.strings
-├── de.lproj/Localizable.strings
-├── ru.lproj/Localizable.strings
-├── zh-Hans.lproj/Localizable.strings
-└── ja.lproj/Localizable.strings
+├── {en,es,fr,it,de,ru,zh-Hans,ja}.lproj/
+│   └── Localizable.strings    # Localized strings (8 languages)
+community-cards/
+├── catalog.json               # Remote card catalog (auto-updated by GitHub Actions)
+└── images/                    # Approved card images
+.github/workflows/
+├── build-ios.yml              # CI: build unsigned IPA on push
+└── approve-card.yml           # Auto-approve: label issue → add to catalog
 ```
 
 ## Community
@@ -113,18 +131,35 @@ card-test/
 
 ### Contributing Card Designs
 
-Help build the community card catalog! If you have a card design that isn't in the built-in catalog, you can submit it directly from the app:
+Help build the community card catalog! You can submit designs directly from the app:
 
+#### From My Cards (existing Apple Pay cards)
 1. Go to the **Cards** tab and apply the card background you'd like to share
 2. Go to **My Cards** → tap **Backup All Current Cards** to save it
 3. Find the card in your saved list and tap the green **Submit** button (↑)
-4. This opens a pre-filled GitHub Issue — review the contents and click **Submit new issue**
-5. A maintainer will review and add your card to the built-in catalog
+4. Fill in the card name, issuer, and country in the submit sheet
+5. The submission creates a GitHub Issue for review
+
+#### Custom designs (from photo library)
+1. Go to the **Community** tab → tap **Submit Custom Card Design**
+2. Pick an image from your photo library
+3. Enter the card name → submit
+4. The submission is sent with `Issuer: Custom` and `Country: N/A`
+
+#### How approvals work
+1. A maintainer reviews the GitHub Issue
+2. Adding the `approved` label triggers an automatic GitHub Action
+3. The card image is decoded and saved to `community-cards/images/`
+4. The card entry is appended to `community-cards/catalog.json`
+5. The issue is closed with a confirmation comment
+6. **The card appears in the Community tab automatically** — no app update needed
+
+> **Note:** Submitted images are compressed to base64 JPEG (max ~44KB) to fit GitHub's 65,536-character issue body limit. This may reduce image quality. For best results, use clean card-resolution images (1536×969).
 
 **Requirements for submissions:**
-- Include the card name, issuer, and country in the issue title
-- One card per issue — submit multiple issues for multiple cards
-- Submitted card images must not contain personal information (card number is automatically stripped by Apple Pay)
+- Include the card name, issuer, and country
+- One card per submission
+- Submitted card images must not contain personal information (card numbers are automatically stripped by Apple Pay)
 
 You can also browse the [source catalog on Dynalist](https://dynalist.io/d/ldKY6rbMR3LPnWz4fTvf_HCh) for cards that haven't been added yet.
 

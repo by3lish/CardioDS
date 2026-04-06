@@ -1,4 +1,5 @@
 ﻿import SwiftUI
+import Combine
 
 // MARK: - Data Model
 
@@ -494,6 +495,8 @@ final class CommunityViewModel: ObservableObject {
     @Published var cards: [CommunityCard] = builtInCards
     @Published var countrySections: [CommunityCountrySection] = []
     @Published var searchText = ""
+    @Published var displayedSections: [CommunityCountrySection] = []
+    @Published var searchID = UUID()
     @Published var isLoading = true
     @Published var isSubmitting = false
     @Published var downloadingIDs: Set<String> = []
@@ -531,8 +534,39 @@ final class CommunityViewModel: ObservableObject {
 
     private static let remoteCatalogURL = URL(string: "https://raw.githubusercontent.com/drkm9743/CardioDS/main/community-cards/catalog.json")!
 
+    private var cancellables = Set<AnyCancellable>()
+
     init() {
+        $searchText
+            .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] _ in
+                self?.updateFilteredSections()
+            }
+            .store(in: &cancellables)
         Task { await loadAndBuild() }
+    }
+
+    private func updateFilteredSections() {
+        let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty, trimmed.count >= 2 else {
+            displayedSections = countrySections
+            searchID = UUID()
+            return
+        }
+        let q = trimmed.lowercased()
+        displayedSections = countrySections.compactMap { section in
+            let filteredCats = section.categories.compactMap { cat in
+                let filtered = cat.cards.filter {
+                    $0.name.lowercased().contains(q) ||
+                    $0.issuer.lowercased().contains(q) ||
+                    $0.category.lowercased().contains(q)
+                }
+                return filtered.isEmpty ? nil : CommunityCategory(id: cat.id, name: cat.name, cards: filtered)
+            }
+            return filteredCats.isEmpty ? nil : CommunityCountrySection(id: section.id, name: section.name, flag: section.flag, categories: filteredCats)
+        }
+        searchID = UUID()
     }
 
     private func loadAndBuild() async {
@@ -590,6 +624,7 @@ final class CommunityViewModel: ObservableObject {
         }.value
 
         countrySections = sections
+        displayedSections = sections
         isLoading = false
     }
 
@@ -647,24 +682,7 @@ final class CommunityViewModel: ObservableObject {
         }
     }
 
-    var filteredSections: [CommunityCountrySection] {
-        let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmed.isEmpty { return countrySections }
-        // Require at least 2 characters to avoid expensive filtering
-        guard trimmed.count >= 2 else { return countrySections }
-        let q = trimmed.lowercased()
-        return countrySections.compactMap { section in
-            let filteredCats = section.categories.compactMap { cat in
-                let filtered = cat.cards.filter {
-                    $0.name.lowercased().contains(q) ||
-                    $0.issuer.lowercased().contains(q) ||
-                    $0.category.lowercased().contains(q)
-                }
-                return filtered.isEmpty ? nil : CommunityCategory(id: cat.id, name: cat.name, cards: filtered)
-            }
-            return filteredCats.isEmpty ? nil : CommunityCountrySection(id: section.id, name: section.name, flag: section.flag, categories: filteredCats)
-        }
-    }
+    // filteredSections logic moved to updateFilteredSections() with debounce
 
     private func rebuildSections() {
         Task { await buildSectionsAsync() }
@@ -778,7 +796,7 @@ struct CommunityView: View {
                 }
             } else {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+                LazyVStack(alignment: .leading, spacing: 16) {
                     Text("community_title")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundColor(.white)
@@ -837,7 +855,7 @@ struct CommunityView: View {
                         .padding(.horizontal, 16)
 
                     // Card grid by country → category
-                    ForEach(vm.filteredSections) { section in
+                    ForEach(vm.displayedSections) { section in
                         VStack(alignment: .leading, spacing: 12) {
                             Text("\(section.flag) \(section.name)")
                                 .font(.system(size: 20, weight: .bold))
@@ -900,6 +918,7 @@ struct CommunityView: View {
                 }
                 .padding(.top, 12)
             }
+            .id(vm.searchID)
             } // else
         }
         .onChange(of: vm.downloadedMessage) { msg in
