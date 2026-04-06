@@ -12,7 +12,7 @@
 "cards_none_found_alert" = "未找到卡片";
 "cards_path_label" = "路径：%@";
 "cards_last_root" = "上次找到的路径：%@";
-"cards_run_exploit_hint" = "前往漏洞利用选项卡并点击"全部运行"。";
+"cards_run_exploit_hint" = "前往漏洞利用选项卡并点击「全部运行」。";
 "cards_open_wallet" = "打开钱包";
 "cards_run_all_scan" = "全部运行 + 扫描";
 "cards_scan_again" = "重新扫描";
