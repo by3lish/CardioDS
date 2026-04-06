@@ -71,7 +71,7 @@ If the exploit fails to find your process or offset resolution fails:
 
 Deleting and re-downloading the kernelcache fixes most issues. Try this before opening a GitHub issue.
 
-The exploit execution could trigger reboots on your device, don't consider it as an issue until it happens like 5 times in a row.
+The exploit execution could trigger reboots on your device, don't consider it as an issue until it happens like 10 times in a row.
 
 Alternatively, exploit execution could take from seconds to minutes, be patient.
 
