@@ -61,6 +61,16 @@ This downloads `libxpf.dylib` and `libgrabkernel2.dylib` from Lara's repository 
 5. Tap the **Number** button to edit the last 4 digits shown on the card
 6. Changes persist on disk; after reboot, run **Run All** again
 
+## Troubleshooting
+
+If the exploit fails to find your process or offset resolution fails:
+
+1. Go to the **Exploit** tab and tap **Clear Kernel Cache**
+2. Tap **Resolve Offsets** to re-download and re-parse the kernelcache
+3. Then tap **Run All** again
+
+Deleting and re-downloading the kernelcache fixes most issues. Try this before opening a GitHub issue.
+
 ## Architecture
 
 ```

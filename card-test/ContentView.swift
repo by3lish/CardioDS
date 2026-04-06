@@ -454,6 +454,23 @@ struct ContentView: View {
                     }
 
                     HStack(spacing: 10) {
+                        Button(exploit.xpfResolving ? NSLocalizedString("exploit_resolving", comment: "") : NSLocalizedString("exploit_resolve_offsets", comment: "")) {
+                            exploit.resolveOffsetsViaXPF { _ in
+                                refreshOffsetInputFromState()
+                                recheckAndReload()
+                            }
+                        }
+                        .disabled(exploit.xpfResolving)
+                        .foregroundColor(.cyan)
+
+                        Button("exploit_clear_cache") {
+                            exploit.clearKernelCache()
+                            refreshOffsetInputFromState()
+                        }
+                        .foregroundColor(.red.opacity(0.8))
+                    }
+
+                    HStack(spacing: 10) {
                         if !exploit.darkswordReady {
                             Button(exploit.darkswordRunning ? NSLocalizedString("exploit_running", comment: "") : NSLocalizedString("exploit_run_darksword", comment: "")) {
                                 exploit.runDarksword { _ in
