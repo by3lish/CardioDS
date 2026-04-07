@@ -34,5 +34,14 @@
     "category": "Revolut",
     "imageURL": "https://raw.githubusercontent.com/drkm9743/CardioDS/main/community-cards/images/revolut-crypto-5.jpg",
     "author": "drkm9743"
+  },
+  {
+    "id": "classic-11",
+    "name": "Classic",
+    "issuer": "Raiffeisen Bank",
+    "country": "Serbia",
+    "category": "Raiffeisen Bank",
+    "imageURL": "https://raw.githubusercontent.com/drkm9743/CardioDS/main/community-cards/images/classic-11.jpg",
+    "author": "drkm9743"
   }
 ]
