@@ -52,5 +52,14 @@
     "category": "Banca Intesa",
     "imageURL": "https://raw.githubusercontent.com/drkm9743/CardioDS/main/community-cards/images/classic-9.jpg",
     "author": "drkm9743"
+  },
+  {
+    "id": "ath-banco-popular-12",
+    "name": "ATH Banco Popular",
+    "issuer": "Banco Popular",
+    "country": "PR",
+    "category": "Banco Popular",
+    "imageURL": "https://raw.githubusercontent.com/drkm9743/CardioDS/main/community-cards/images/ath-banco-popular-12.jpg",
+    "author": "drkm9743"
   }
 ]
