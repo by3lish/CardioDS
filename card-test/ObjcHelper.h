@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSArray<NSString *> *)directListDirectory:(NSString *)path;
 -(NSData * _Nullable)directReadFile:(NSString *)path maxSize:(int64_t)maxSize;
 -(NSDictionary<NSString *, NSNumber *> *)runtimeEntitlementFlags;
+-(BOOL)isLikelyLiveContainerGuest;
 @end
 
 NS_ASSUME_NONNULL_END
