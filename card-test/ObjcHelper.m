@@ -2,7 +2,6 @@
 #import <Security/Security.h>
 #import <dirent.h>
 #import <fcntl.h>
-#import <mach-o/dyld.h>
 #import <limits.h>
 #import <sys/stat.h>
 #import <unistd.h>
@@ -16,9 +15,6 @@ void killall(NSString* processName);
 typedef const struct CF_BRIDGED_TYPE(id) __SecTask *SecTaskRef;
 extern SecTaskRef SecTaskCreateFromSelf(CFAllocatorRef allocator);
 extern CFTypeRef _Nullable SecTaskCopyValueForEntitlement(SecTaskRef task, CFStringRef entitlement, CFErrorRef _Nullable * _Nullable error);
-extern int proc_name(int pid, void *buffer, uint32_t buffersize);
-extern int proc_pidpath(int pid, void *buffer, uint32_t buffersize);
-
 #ifndef PROC_PIDPATHINFO_MAXSIZE
 #define PROC_PIDPATHINFO_MAXSIZE (4 * PATH_MAX)
 #endif
@@ -45,27 +41,6 @@ static NSNumber * _Nullable cardioBoolFromEntitlementValue(CFTypeRef _Nullable v
 
     CFRelease(value);
     return result;
-}
-
-static BOOL cardioImageListSuggestsLiveContainer(void) {
-    uint32_t count = _dyld_image_count();
-    for (uint32_t i = 0; i < count; i++) {
-        const char *imageName = _dyld_get_image_name(i);
-        if (imageName == NULL) {
-            continue;
-        }
-
-        NSString *path = [[NSString stringWithUTF8String:imageName] lowercaseString];
-        if ([path containsString:@"livecontainershared"] ||
-            [path containsString:@"/livecontainer.app/"] ||
-            [path containsString:@"/liveprocess.app/"] ||
-            [path containsString:@"tweakinjector.dylib"] ||
-            [path containsString:@"tweakloader.dylib"]) {
-            return YES;
-        }
-    }
-
-    return NO;
 }
 
 @implementation ObjcHelper
@@ -254,35 +229,7 @@ static BOOL cardioImageListSuggestsLiveContainer(void) {
 }
 
 -(BOOL)isLikelyLiveContainerGuest {
-    char guestExecutablePath[PROC_PIDPATHINFO_MAXSIZE] = {0};
-    uint32_t guestExecutablePathLength = sizeof(guestExecutablePath);
-    if (_NSGetExecutablePath(guestExecutablePath, &guestExecutablePathLength) != 0) {
-        guestExecutablePath[0] = '\0';
-    }
-
-    char hostExecutablePath[PROC_PIDPATHINFO_MAXSIZE] = {0};
-    if (proc_pidpath(getpid(), hostExecutablePath, sizeof(hostExecutablePath)) <= 0) {
-        hostExecutablePath[0] = '\0';
-    }
-
-    char kernelProcessName[PROC_PIDPATHINFO_MAXSIZE] = {0};
-    if (proc_name(getpid(), kernelProcessName, sizeof(kernelProcessName)) <= 0) {
-        kernelProcessName[0] = '\0';
-    }
-
-    NSString *guestPath = guestExecutablePath[0] ? [NSString stringWithUTF8String:guestExecutablePath] : @"";
-    NSString *hostPath = hostExecutablePath[0] ? [NSString stringWithUTF8String:hostExecutablePath] : @"";
-    NSString *guestName = guestPath.lastPathComponent ?: @"";
-    NSString *hostName = hostPath.lastPathComponent ?: @"";
-    NSString *kernelName = kernelProcessName[0] ? [NSString stringWithUTF8String:kernelProcessName] : @"";
-
-    BOOL guestAppPath = [guestPath containsString:@"/Documents/Applications/"];
-    BOOL hostMismatch = guestPath.length > 0 && hostPath.length > 0 && ![guestPath isEqualToString:hostPath];
-    BOOL procMismatch = guestName.length > 0 && kernelName.length > 0 && ![guestName isEqualToString:kernelName];
-    BOOL liveProcessHost = [hostName isEqualToString:@"LiveProcess"] || [kernelName isEqualToString:@"LiveProcess"];
-    BOOL imageListHint = cardioImageListSuggestsLiveContainer();
-
-    return guestAppPath || liveProcessHost || (hostMismatch && procMismatch) || imageListHint;
+    return [[NSBundle mainBundle] pathForResource:@"LCAppInfo" ofType:@"plist"] != nil;
 }
 
 // MARK: - TSUtil
